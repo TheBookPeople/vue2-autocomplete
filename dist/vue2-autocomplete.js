@@ -213,6 +213,7 @@ if (false) {(function () {
     },
     placeholder: String,
     required: Boolean,
+    autofocus: Boolean,
 
     // Intial Value
     initValue: {
@@ -544,6 +545,10 @@ if (false) {(function () {
   },
   mounted: function mounted() {
     if (this.required) this.$refs.input.setAttribute("required", this.required);
+    if (this.autofocus) {
+      this.$refs.input.setAttribute("autofocus", this.autofocus);
+      this.$refs.input.focus();
+    }
   }
 });
 

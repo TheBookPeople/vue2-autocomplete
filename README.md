@@ -97,6 +97,7 @@ Available Props
 
 
     :required="true"
+    :autofocus="true"
     id="custom id"
     className="custom class name"
     :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
@@ -163,6 +164,9 @@ Delay time before do the ajax for the data
 
 #### required (Boolean)
 Required attribute for input
+
+#### autofocus (Boolean)
+Autofocus attribute for input, sets focus on mount
 
 #### placeholder (String)
 Placeholder for input

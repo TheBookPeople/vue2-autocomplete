@@ -72,6 +72,7 @@
       },
       placeholder: String,
       required: Boolean,
+      autofocus: Boolean,
 
       // Intial Value
       initValue: {
@@ -399,6 +400,10 @@
 
     mounted() {
       if (this.required) this.$refs.input.setAttribute("required", this.required)
+      if (this.autofocus) {
+        this.$refs.input.setAttribute("autofocus", this.autofocus)
+        this.$refs.input.focus();
+      }
     }
 
   }
