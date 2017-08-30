@@ -64,6 +64,8 @@ var Autocomplete = require('vue2-autocomplete-js');
 
 </template>
 
+You can optionally use v-model to access and update the text entry field. If You
+update the model the component will automatically search for the string entered. 
 
 <script>
 

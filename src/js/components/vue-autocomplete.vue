@@ -28,6 +28,7 @@
         >
           <a
             href="#"
+            @mousedown.prevent="mousedownList()"
             @click.prevent="selectList(data)"
             @mousemove="mousemove(i)"
           >
@@ -55,9 +56,25 @@
   *
   */
 
+  const processInput = function (value) {
+    this.showList = true;
+    // Callback Event
+    if(this.onInput) this.onInput(value)
+    // If Debounce
+    if (this.debounce) {
+      if (this.debounceTask !== undefined) clearTimeout(this.debounceTask)
+      this.debounceTask = setTimeout(() => {
+        return this.getData(value)
+      }, this.debounce)
+    } else {
+      return this.getData(value)
+    }
+  }
+
   export default {
 
     props: {
+      value: String,
       id: String,
       name: String,
       className: String,
@@ -159,6 +176,9 @@
     },
 
     watch: {
+      value(value) {
+        return processInput.bind(this)(value)
+      },
       options(newVal, oldVal) {
         if (this.filterByAnchor) {
           const { type, anchor } = this
@@ -201,17 +221,10 @@
       =============================*/
       handleInput(e){
         const { value } = e.target
-        this.showList = true;
-        // Callback Event
-        if(this.onInput) this.onInput(value)
-        // If Debounce
-        if (this.debounce) {
-          if (this.debounceTask !== undefined) clearTimeout(this.debounceTask)
-          this.debounceTask = setTimeout(() => {
-            return this.getData(value)
-          }, this.debounce)
+        if (this.value !== undefined) {
+          this.$emit('input', value)
         } else {
-          return this.getData(value)
+          return proceessInput.bind(this)(value)
         }
       },
 
@@ -242,7 +255,6 @@
           case ENTER:
             e.preventDefault()
             this.selectList(this.json[this.focusList])
-            this.showList = false;
           break;
           case ESC:
             this.showList = false;
@@ -277,6 +289,12 @@
         // Callback Event
         this.onShow ? this.onShow() : null
         this.showList = true;
+      },
+
+
+      // Simply here to prevent default on mouse down so that input field does
+      // not blur
+      mousedownList(e){
       },
 
       handleBlur(e){
