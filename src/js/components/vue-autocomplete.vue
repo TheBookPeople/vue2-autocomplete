@@ -224,7 +224,7 @@
         if (this.value !== undefined) {
           this.$emit('input', value)
         } else {
-          return proceessInput.bind(this)(value)
+          return processInput.bind(this)(value)
         }
       },
 
